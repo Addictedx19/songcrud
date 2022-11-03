@@ -9,24 +9,25 @@ from django.db import models
 class Artiste(models.Model):
     first_name = models.CharField(max_length = 500)
     last_name = models.CharField(max_length = 500)
-    age = models.IntegerField(default = None)
+    age = models.IntegerField()
 
     def __str__(self):
         return self.first_name
-
 
 class Song(models.Model):
     title = models.CharField(max_length = 500)
     date_released = models.DateField()
     likes = models.IntegerField()
-    artiste_id = models.ForeignKey(Artiste, on_delete = models.CASCADE)
-
+    artiste_id = models.IntegerField(default = 0)
+    Artiste = models.ForeignKey(Artiste, on_delete = models.CASCADE)
+   
     def __str__(self):
         return self.title
 
 class Lyric(models.Model):
     Content = models.CharField(max_length = 3000)
-    song_id = models.ForeignKey(Song, on_delete = models.CASCADE)
+    song_id = models.IntegerField(default = 0)
+    Song = models.ForeignKey(Song, on_delete = models.CASCADE)
    
     def __str__(self):
         return self.Content
